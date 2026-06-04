@@ -1,0 +1,99 @@
+.authCard {
+    background: var(--bg-primary);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 450px;
+}
+
+.authTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.authSubtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.form :global(.ant-form-item-label > label) {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.input {
+    height: 44px;
+    border-radius: 9999px;
+    border-color: var(--border-color);
+}
+
+.input:hover,
+.input:focus {
+    border-color: var(--text-primary) !important;
+}
+
+.inputIcon {
+    color: var(--text-secondary);
+    margin-right: 8px;
+}
+
+.formExtras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.forgotLink {
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.forgotLink:hover {
+    color: var(--text-primary);
+}
+
+.submitBtn {
+    height: 48px;
+    background: var(--text-primary) !important;
+    border-color: var(--text-primary) !important;
+    font-weight: 600;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submitBtn:hover {
+    background: #262626 !important;
+    border-color: #262626 !important;
+}
+
+.authFooter {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.authFooter a {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* Register specific */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}

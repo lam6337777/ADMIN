@@ -1,0 +1,249 @@
+.container {
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.titleGroup h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.titleGroup p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.headerActions {
+    display: flex;
+    gap: 12px;
+}
+
+.addButton,
+.importButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.addButton {
+    background-color: var(--text-primary);
+    color: white;
+    border: none;
+}
+
+.addButton:hover {
+    background-color: #333;
+}
+
+.importButton {
+    background-color: white;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.importButton:hover {
+    background-color: var(--bg-secondary);
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.filterCard {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.searchWrapper {
+    flex: 1;
+    position: relative;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    background-color: var(--bg-secondary);
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+.select {
+    min-width: 160px;
+}
+
+.tableContainer {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.productCell {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.productImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: var(--bg-secondary);
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.productName {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.productVariant {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.stockLevelWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 120px;
+}
+
+.progressBar {
+    height: 6px;
+    background-color: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progressFill {
+    height: 100%;
+    background-color: var(--text-primary);
+    border-radius: 3px;
+}
+
+.stockStatus {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.inStock {
+    color: var(--text-secondary);
+}
+
+.lowStock {
+    color: #d97706;
+}
+
+.outOfStock {
+    color: #dc2626;
+}
+
+.price {
+    font-weight: 700;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    color: var(--text-secondary);
+}
+
+.actionIcon {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.actionIcon:hover {
+    color: var(--text-primary);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.paginationText {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.paginationBtns {
+    display: flex;
+    gap: 8px;
+}
+
+.pageBtn {
+    padding: 8px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background-color: white;
+}
+
+.pageBtnActive {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.actionDelete:hover {
+    color: #ef4444 !important;
+}

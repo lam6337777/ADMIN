@@ -1,0 +1,290 @@
+.container {
+    padding: 2rem;
+    height: 100%;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.titleGroup h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.titleGroup p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.filterCard {
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.searchWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 9999px;
+}
+
+.searchInput {
+    flex: 1;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+/* Chat Layout */
+.chatLayout {
+    display: flex;
+    height: 100%;
+    border-top: 1px solid var(--border-color);
+}
+
+.chatSidebar {
+    width: 320px;
+    border-right: 1px solid var(--border-color);
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebarHeader h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.sidebarSearch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-secondary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.sidebarSearch input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.conversationList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.convItem {
+    display: flex;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.convItem:hover {
+    background: var(--bg-secondary);
+}
+
+.activeConv {
+    background: var(--bg-secondary);
+    border-right: 3px solid var(--text-primary);
+}
+
+.avatar {
+    background: var(--text-primary);
+}
+
+.convInfo {
+    flex: 1;
+    overflow: hidden;
+}
+
+.convHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.convName {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.convTime {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.convLast {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.unreadBadge {
+    background: var(--color-down);
+    color: white;
+    font-size: 0.7rem;
+    border-radius: 10px;
+    padding: 1px 6px;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+/* Chat Main */
+.chatMain {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fcfcfc;
+}
+
+.chatHeader {
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.selectedUserInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selectedUserInfo h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.selectedUserInfo p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.messageList {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.messageWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+}
+
+.ownMessage {
+    align-self: flex-end;
+}
+
+.messageBubble {
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ownMessage .messageBubble {
+    background: var(--text-primary);
+    color: white;
+    border-color: var(--text-primary);
+}
+
+.messageTime {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+    padding: 0 0.5rem;
+}
+
+.ownMessage .messageTime {
+    text-align: right;
+}
+
+.chatInputWrapper {
+    padding: 1.5rem 2rem;
+    background: white;
+    border-top: 1px solid var(--border-color);
+}
+
+.chatInput {
+    height: 48px;
+    border-radius: 9999px !important;
+}
+
+.noSelection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-secondary);
+}
+
+.noSelectionContent {
+    text-align: center;
+}
+
+.noSelectionIcon {
+    opacity: 0.1;
+    margin-bottom: 2rem;
+}
+
+/* Table overrides */
+.orderId {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.customerInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.customerName {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.customerEmail {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}

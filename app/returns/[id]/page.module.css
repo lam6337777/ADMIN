@@ -1,0 +1,137 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.backButton:hover {
+    color: var(--text-primary);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.titleGroup h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.orderCode {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 1rem;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.infoItem label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.infoItem p {
+    font-weight: 600;
+    margin: 0;
+}
+
+.reasonBox {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.itemRow {
+    display: grid;
+    grid-template-columns: 1fr 100px 80px 100px;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.itemRow:last-child {
+    border-bottom: none;
+}
+
+.itemHeader {
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.productName {
+    font-weight: 600;
+}
+
+.adminNoteSection {
+    margin-top: 2rem;
+}
+
+.adminNoteBox {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+}
