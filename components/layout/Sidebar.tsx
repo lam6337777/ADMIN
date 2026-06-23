@@ -34,7 +34,7 @@ export default function Sidebar() {
         <div className={styles.logoIcon}>
           <Circle size={20} fill="white" />
         </div>
-        <span className={styles.logoText}>SOLEADMIN</span>
+        <span className={styles.logoText}>SHOEADMIN</span>
       </div>
 
       <nav className={styles.nav}>

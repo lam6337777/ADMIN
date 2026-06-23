@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Sole Admin",
+    title: "Admin PF",
     description: "Trang quản trị hệ thống",
 };
 

@@ -79,7 +79,6 @@ export default function LoginForm() {
 
                 <div className={styles.formExtras}>
                     <Checkbox>Ghi nhớ đăng nhập</Checkbox>
-                    <Link href="/forgot-password" className={styles.forgotLink}>Quên mật khẩu?</Link>
                 </div>
 
                 <Form.Item>
@@ -96,10 +95,7 @@ export default function LoginForm() {
                 </Form.Item>
             </Form>
 
-            <div className={styles.authFooter}>
-                <span>Chưa có tài khoản? </span>
-                <Link href="/register">Đăng ký ngay</Link>
-            </div>
+
         </div>
     );
 }
