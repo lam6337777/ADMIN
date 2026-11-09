@@ -9,6 +9,7 @@ interface StatCardProps {
     isUp?: boolean;
     subtext?: string;
     icon?: LucideIcon;
+    tone?: 'brand' | 'coral' | 'amber' | 'sky' | 'violet';
 }
 
 export default function StatCard({
@@ -17,10 +18,11 @@ export default function StatCard({
     trend,
     isUp,
     subtext,
-    icon: Icon
+    icon: Icon,
+    tone = 'brand'
 }: StatCardProps) {
     return (
-        <div className={styles.card}>
+        <div className={`${styles.card} ${tone !== 'brand' ? styles[tone] : ''}`}>
             <div className={styles.header}>
                 <span className={styles.title}>{title}</span>
                 {Icon && (

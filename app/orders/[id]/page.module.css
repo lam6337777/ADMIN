@@ -1,132 +1,319 @@
 .container {
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.backLink:hover {
+    color: var(--color-primary);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.titleRow {
+    display: flex;
     align-items: center;
-    margin-bottom: 32px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .titleGroup h1 {
     font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 4px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
-.titleGroup p {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-}
-
-.backLink {
+.meta {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    margin-top: 6px;
     color: var(--text-secondary);
-    font-weight: 600;
     font-size: 0.875rem;
-    cursor: pointer;
-    transition: color 0.2s;
-    margin-bottom: 8px;
 }
 
-.backLink:hover {
-    color: var(--text-primary);
-}
-
-.orderStatus {
-    display: inline-flex;
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .mainContent {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.leftColumn,
+.rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
 }
 
 .card {
-    background-color: white;
+    background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
 }
 
 .cardTitle {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 20px;
-    color: var(--text-primary);
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 16px;
+    gap: 10px;
+}
+
+.cardTitle svg {
+    color: var(--color-primary);
+}
+
+.cancelBanner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-down);
+    font-weight: 600;
+}
+
+.afterSales {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.afterSales a,
+.link {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
 }
 
 .orderItem {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 12px 0;
+    padding: 14px 0;
 }
 
 .orderItem:not(:last-child) {
-    border-bottom: 1px solid var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.itemImageContainer {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+}
+
+.itemImage,
+.itemImagePlaceholder {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-card);
+    background: var(--bg-secondary);
 }
 
 .itemImage {
-    width: 64px;
-    height: 64px;
-    border-radius: 8px;
     object-fit: cover;
-    background-color: var(--bg-secondary);
+}
+
+.itemImagePlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
 }
 
 .itemInfo {
     flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .itemName {
     font-weight: 600;
-    display: block;
+    color: var(--text-primary);
+}
+
+a.itemName:hover {
+    color: var(--color-primary);
 }
 
 .itemSku {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: var(--text-secondary);
 }
 
-.itemPrice {
+.itemTags:not(:empty) {
+    margin-top: 4px;
+}
+
+.itemPrices {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.itemUnit {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.itemTotal {
     font-weight: 700;
+}
+
+.summary {
+    max-width: 360px;
+    margin: 12px 0 0 auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
 }
 
 .summaryRow {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    align-items: center;
+    margin-bottom: 10px;
     color: var(--text-secondary);
-    font-size: 0.9375rem;
+    font-size: 0.9rem;
+}
+
+.summaryRow :global(.ant-tag) {
+    margin-inline-end: 0;
+}
+
+.discountRow {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+}
+
+.inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.voucherTag {
+    font-family: ui-monospace, monospace;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    font-weight: 700;
+}
+
+.totalValue {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-accent);
+}
+
+.history {
+    margin-top: 8px;
+}
+
+.history :global(.ant-timeline-item:last-child) {
+    padding-bottom: 0;
+}
+
+.historyHead {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.historyHead span {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.historyNote {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.customerSection {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.customerInfoGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.value {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.value a {
+    color: var(--color-primary);
+}
+
+.noteBox {
+    font-size: 0.875rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
 }
 
 .errorContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 60px;
+    padding: 64px 24px;
     gap: 16px;
-    background: white;
-    border-radius: 12px;
-    margin: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
 }
 
 .loadingContainer {
@@ -136,71 +323,26 @@
     min-height: 400px;
 }
 
-.itemImageContainer {
-    width: 64px;
-    height: 64px;
-    flex-shrink: 0;
-}
-
-.itemImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #eee;
-}
-
-.itemImagePlaceholder {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #eee;
-}
-
-.totalRow {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 2px solid var(--bg-secondary);
-    font-size: 1.125rem;
-    font-weight: 800;
-}
-
-.customerSection {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.customerInfoGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-.value {
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.timeline {
-    margin-top: 8px;
-}
-
 @media (max-width: 1024px) {
     .mainContent {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
+}
+
+@media (max-width: 640px) {
+    .orderItem {
+        flex-wrap: wrap;
+    }
+
+    .itemPrices {
+        width: 100%;
+        text-align: left;
+        padding-left: 80px;
+    }
+}
+
+.historyHint {
+    margin-top: 12px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
 }

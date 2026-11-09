@@ -1,14 +1,35 @@
 .layout {
+    min-height: 100vh;
+    background:
+        radial-gradient(50% 40% at 100% 0%, rgb(38 196 171 / 0.10), transparent 70%),
+        radial-gradient(40% 35% at 30% 100%, rgb(255 101 82 / 0.06), transparent 70%),
+        var(--bg-page);
+    background-attachment: fixed;
+}
+
+.main {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-width: 0;
 }
 
 .content {
     flex: 1;
-    padding: 40px;
-    background-color: var(--bg-primary);
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 28px 32px 40px;
+    min-width: 0;
+}
+
+@media (max-width: 1024px) {
+    .main {
+        margin-left: 0;
+    }
+
+    .content {
+        padding: 20px 16px 32px;
+    }
 }

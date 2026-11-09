@@ -24,6 +24,7 @@ export interface Product {
     brandId: number;
     originalPrice: number;
     salePrice: number;
+    model3dUrl?: string | null;
     isActive: boolean;
     isFeatured: boolean;
     totalSold: number;
@@ -95,6 +96,8 @@ export interface ProductRequest {
     originalPrice: number;
     salePrice?: number;
     isFeatured?: boolean;
+    /** Link file mô hình 3D .glb (không bắt buộc) */
+    model3dUrl?: string;
     variants: VariantRequest[];
     imageUrls: string[];
 }

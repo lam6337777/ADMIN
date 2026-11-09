@@ -1,83 +1,143 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  LayoutDashboard,
-  ShoppingBag,
-  Package,
-  Users,
-  BarChart3,
-  Settings,
-  Circle,
-  Star
+    LayoutDashboard,
+    ShoppingBag,
+    RotateCcw,
+    Users,
+    Package,
+    Star,
+    TicketPercent,
+    Truck,
+    MessageCircle,
+    Bell,
+    X,
+    ExternalLink,
+    type LucideIcon,
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
+import { useAppDispatch, useAppSelector } from '@/store/redux/hooks';
+import { fetchDashboardStats } from '@/store/redux/slices/dashboardSlice';
+import { RootState } from '@/store/redux/store';
 
-const navItems = [
-  { icon: LayoutDashboard, label: 'Tổng quan', href: '/' },
-  { icon: ShoppingBag, label: 'Đơn hàng', href: '/orders' },
-  { icon: Package, label: 'Sản phẩm', href: '/products' },
-  { icon: Users, label: 'Khách hàng', href: '/customers' },
-  { icon: BarChart3, label: 'Đổi trả', href: '/returns' },
-  { icon: Star, label: 'Đánh giá', href: '/reviews' },
-  { icon: Users, label: 'Hỗ trợ', href: '/support' },
+type NavItem = { icon: LucideIcon; label: string; href: string; badge?: 'pendingOrders' };
+type Tone = 'teal' | 'sky' | 'violet' | 'coral' | 'amber';
+
+const NAV_GROUPS: { title?: string; tone: Tone; items: NavItem[] }[] = [
+    { tone: 'teal', items: [{ icon: LayoutDashboard, label: 'Tổng quan', href: '/' }] },
+    {
+        title: 'Bán hàng',
+        tone: 'sky',
+        items: [
+            { icon: ShoppingBag, label: 'Đơn hàng', href: '/orders', badge: 'pendingOrders' },
+            { icon: RotateCcw, label: 'Đổi trả · Bảo hành', href: '/returns' },
+            { icon: Users, label: 'Khách hàng', href: '/customers' },
+        ],
+    },
+    {
+        title: 'Sản phẩm',
+        tone: 'violet',
+        items: [
+            { icon: Package, label: 'Kho sản phẩm', href: '/inventory' },
+            { icon: Star, label: 'Đánh giá', href: '/reviews' },
+        ],
+    },
+    {
+        title: 'Khuyến mãi & vận chuyển',
+        tone: 'coral',
+        items: [
+            { icon: TicketPercent, label: 'Mã giảm giá', href: '/vouchers' },
+            { icon: Truck, label: 'Phí ship', href: '/shipping' },
+        ],
+    },
+    {
+        title: 'Chăm sóc khách hàng',
+        tone: 'amber',
+        items: [
+            { icon: MessageCircle, label: 'Hỗ trợ', href: '/support' },
+            { icon: Bell, label: 'Thông báo', href: '/notifications' },
+        ],
+    },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
+const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || 'http://localhost:3000';
 
-  return (
-    <aside className={styles.sidebar}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>
-          <Circle size={20} fill="white" />
-        </div>
-        <span className={styles.logoText}>SHOEADMIN</span>
-      </div>
+function isActive(pathname: string, href: string) {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-      <nav className={styles.nav}>
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-            >
-              <Icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
+export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
+    const pathname = usePathname() || '/';
+    const dispatch = useAppDispatch();
+    const stats = useAppSelector((state: RootState) => state.dashboard.stats);
 
-      <div className={styles.footer}>
-        <Link
-          href="/settings"
-          className={`${styles.navItem} ${pathname === '/settings' ? styles.navItemActive : ''}`}
-        >
-          <Settings size={20} />
-          <span>Cài đặt</span>
-        </Link>
+    // Số đơn chờ xác nhận cho badge — tải 1 lần và làm mới khi có đơn mới qua websocket
+    useEffect(() => {
+        if (!stats) dispatch(fetchDashboardStats());
+        const refresh = () => dispatch(fetchDashboardStats());
+        window.addEventListener('admin_new_order', refresh);
+        return () => window.removeEventListener('admin_new_order', refresh);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
 
-        <div className={styles.userProfile}>
-          <div className={styles.avatar}>
-            <img
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex"
-              alt="Avatar"
-              width={40}
-              height={40}
-            />
-          </div>
-          <div className={styles.userInfo}>
-            <span className={styles.userName}>Alex Rivera</span>
-            <span className={styles.userRole}>Quản lý cửa hàng</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-  );
+    return (
+        <>
+            <div className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`} onClick={onClose} aria-hidden />
+            <aside className={`${styles.sidebar} ${open ? styles.open : ''}`} aria-label="Điều hướng quản trị">
+                <div className={styles.brand}>
+                    <Link href="/" className={styles.logo} onClick={onClose}>
+                        <span className={styles.logoMark}>PF</span>
+                        <span className={styles.logoText}>
+                            PF. Shoes
+                            <small>Quản trị cửa hàng</small>
+                        </span>
+                    </Link>
+                    <button className={styles.close} onClick={onClose} aria-label="Đóng menu">
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <nav className={styles.nav}>
+                    {NAV_GROUPS.map((group, gi) => (
+                        <div key={gi} className={`${styles.group} ${styles[group.tone]}`}>
+                            {group.title && <div className={styles.groupTitle}>{group.title}</div>}
+                            {group.items.map((item) => {
+                                const Icon = item.icon;
+                                const active = isActive(pathname, item.href);
+                                const count = item.badge ? stats?.[item.badge] ?? 0 : 0;
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        onClick={onClose}
+                                        className={`${styles.navItem} ${active ? styles.active : ''}`}
+                                        aria-current={active ? 'page' : undefined}
+                                    >
+                                        <span className={styles.iconChip}>
+                                            <Icon size={16} />
+                                        </span>
+                                        <span className={styles.label}>{item.label}</span>
+                                        {count > 0 && (
+                                            <span className={styles.badge} title={`${count} đơn chờ xác nhận`}>
+                                                {count > 99 ? '99+' : count}
+                                            </span>
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    ))}
+                </nav>
+
+                <a href={STORE_URL} target="_blank" rel="noopener noreferrer" className={styles.storeLink}>
+                    <span>Xem cửa hàng</span>
+                    <ExternalLink size={15} />
+                </a>
+            </aside>
+        </>
+    );
 }

@@ -1,12 +1,13 @@
 // Root layout - KHÔNG được dùng 'use client'
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import RootClientLayout from "@/components/layout/RootClientLayout";
 
-const inter = Inter({
-    variable: "--font-inter",
+const beVietnam = Be_Vietnam_Pro({
+    variable: "--font-be-vietnam",
     subsets: ["latin", "vietnamese"],
+    weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="vi">
-            <body className={`${inter.variable} antialiased`}>
+            <body className={`${beVietnam.variable} antialiased`}>
                 <RootClientLayout>
                     {children}
                 </RootClientLayout>

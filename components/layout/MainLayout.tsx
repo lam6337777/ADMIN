@@ -1,19 +1,27 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Header from './Header';
+import Sidebar from './Sidebar';
 import Footer from './Footer';
 import styles from './MainLayout.module.css';
 
-interface MainLayoutProps {
-    children: React.ReactNode;
-}
+export default function MainLayout({ children }: { children: React.ReactNode }) {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const pathname = usePathname();
 
-export default function MainLayout({ children }: MainLayoutProps) {
+    // Đóng menu mobile khi chuyển trang
+    useEffect(() => setMenuOpen(false), [pathname]);
+
     return (
         <div className={styles.layout}>
-            <Header />
-            <main className={styles.content}>
-                {children}
-            </main>
-            <Footer />
+            <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+            <div className={styles.main}>
+                <Header onMenuClick={() => setMenuOpen(true)} />
+                <main className={styles.content}>{children}</main>
+                <Footer />
+            </div>
         </div>
     );
 }

@@ -1,8 +1,8 @@
 .authCard {
     background: var(--bg-primary);
     padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lift);
     border: 1px solid var(--border-color);
     width: 100%;
     max-width: 450px;
@@ -36,7 +36,7 @@
 
 .input:hover,
 .input:focus {
-    border-color: var(--text-primary) !important;
+    border-color: var(--color-primary) !important;
 }
 
 .inputIcon {
@@ -63,8 +63,8 @@
 
 .submitBtn {
     height: 48px;
-    background: var(--text-primary) !important;
-    border-color: var(--text-primary) !important;
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
     font-weight: 600;
     border-radius: 9999px;
     display: flex;
@@ -74,8 +74,8 @@
 }
 
 .submitBtn:hover {
-    background: #262626 !important;
-    border-color: #262626 !important;
+    background: var(--brand-600) !important;
+    border-color: var(--brand-600) !important;
 }
 
 .authFooter {
@@ -86,7 +86,7 @@
 }
 
 .authFooter a {
-    color: var(--text-primary);
+    color: var(--color-primary);
     font-weight: 600;
     text-decoration: underline;
 }
@@ -96,4 +96,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+}
+.authLogo {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--brand-400), var(--brand-600));
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 10px 24px -10px rgb(14 168 147 / 0.8);
 }

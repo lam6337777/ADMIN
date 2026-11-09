@@ -42,8 +42,9 @@ export const supportService = {
         return response.data.data;
     },
 
-    markAsRead: async () => {
-        const response = await axiosInstance.post<ApiResponse<string>>('/api/chat/read');
+    /** Đánh dấu đã đọc toàn bộ tin của 1 khách — áp dụng cho mọi admin (hộp thư chung) */
+    markConversationRead: async (customerId: number) => {
+        const response = await axiosInstance.post<ApiResponse<number>>(`/api/chat/read/${customerId}`);
         return response.data.data;
     }
 };

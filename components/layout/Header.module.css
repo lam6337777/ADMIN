@@ -1,10 +1,12 @@
 .header {
-    height: 64px;
-    padding: 0 40px;
+    height: var(--header-height);
+    padding: 0 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--bg-primary);
+    gap: 16px;
+    background-color: rgb(255 255 255 / 0.85);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
@@ -14,118 +16,82 @@
 .left {
     display: flex;
     align-items: center;
-    gap: 48px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
     gap: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    min-width: 0;
 }
 
-.logo:hover {
-    transform: scale(1.02);
-}
-
-.logoIcon {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #000000 0%, #434343 100%);
+.menuBtn {
+    display: none;
+    padding: 8px;
     border-radius: 10px;
+    color: var(--text-primary);
+}
+
+.menuBtn:hover {
+    background: var(--bg-hover);
+}
+
+.greeting {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    min-width: 0;
 }
 
-.logoText {
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    background: linear-gradient(90deg, #111, #666);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.hello {
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-.navLink {
-    font-size: 0.875rem;
-    font-weight: 500;
+.date {
+    font-size: 0.78rem;
     color: var(--text-secondary);
-    transition: color 0.15s;
-    position: relative;
-    padding: 22px 0;
-}
-
-.navLink:hover {
-    color: var(--text-primary);
-}
-
-.active {
-    color: var(--text-primary);
-}
-
-.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background-color: var(--text-primary);
+    text-transform: capitalize;
 }
 
 .actions {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
-.searchWrapper {
-    position: relative;
-    width: 240px;
+@media (max-width: 1024px) {
+    .header {
+        padding: 0 12px;
+    }
+
+    .menuBtn {
+        display: inline-flex;
+    }
 }
 
-.searchIcon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-}
-
-.searchInput {
-    width: 100%;
-    padding: 8px 12px 8px 36px;
-    background-color: var(--bg-secondary);
-    border: 1px solid transparent;
-    border-radius: 9999px;
-    font-size: 0.8125rem;
-    transition: all 0.2s;
-}
-
-.searchInput:focus {
-    outline: none;
-    border-color: var(--border-color);
+@media (max-width: 640px) {
+    .date,
+    .userInfo {
+        display: none !important;
+    }
 }
 
 .notificationBtn {
     color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 4px;
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.notificationBtn:hover {
+    background: var(--bg-hover);
+    color: var(--color-primary);
 }
 
 .bellShake {
@@ -156,8 +122,8 @@
 }
 
 .notificationDropdown {
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-lift);
     border-radius: 12px;
     width: 320px;
     overflow: hidden;
@@ -193,7 +159,7 @@
 }
 
 .unread {
-    background-color: #f0f7ff;
+    background-color: var(--color-primary-soft);
 }
 
 .notifLink {
@@ -220,22 +186,22 @@
 
 .notifTime {
     font-size: 0.6875rem;
-    color: #999;
+    color: var(--text-secondary);
 }
 
 .iconorder {
-    background-color: #e6f7ff;
-    color: #1890ff;
+    background-color: var(--brand-50) !important;
+    color: var(--brand-600) !important;
 }
 
 .iconreturn {
-    background-color: #fff7e6;
-    color: #fa8c16;
+    background-color: #fff3f1 !important;
+    color: #ec4733 !important;
 }
 
 .iconchat {
-    background-color: #f6ffed;
-    color: #52c41a;
+    background-color: #eef4ff !important;
+    color: #3b6fd8 !important;
 }
 
 .notifFooter {

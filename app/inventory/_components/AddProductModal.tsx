@@ -50,6 +50,7 @@ export default function AddProductModal({ visible, onCancel, onSuccess }: AddPro
                 originalPrice: values.originalPrice,
                 salePrice: values.salePrice,
                 isFeatured: values.isFeatured || false,
+                model3dUrl: values.model3dUrl?.trim() || undefined,
                 imageUrls: values.imageUrls ? values.imageUrls.split('\n').filter((url: string) => url.trim() !== '') : [],
                 variants: values.variants || []
             };
@@ -160,6 +161,15 @@ export default function AddProductModal({ visible, onCancel, onSuccess }: AddPro
                     extra="Mỗi link hình ảnh trên một dòng. Link đầu tiên sẽ là ảnh chính."
                 >
                     <Input.TextArea rows={3} placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" />
+                </Form.Item>
+
+                <Form.Item
+                    name="model3dUrl"
+                    label="Link mô hình 3D (.glb) — không bắt buộc"
+                    extra="Khách sẽ xem được sản phẩm 3D trên trang chi tiết. File mẫu có sẵn: /models/demo-shoe.glb"
+                    rules={[{ pattern: /^(https?:\/\/|\/).+\.(glb|gltf)(\?.*)?$/i, message: 'Link phải trỏ tới file .glb hoặc .gltf' }]}
+                >
+                    <Input placeholder="https://.../giay.glb" />
                 </Form.Item>
 
                 <Divider orientation="left" style={{ margin: '24px 0 16px' }}>

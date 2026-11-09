@@ -4,12 +4,13 @@ import React from 'react';
 import { Table } from 'antd';
 import Link from 'next/link'; // Thêm Link component
 import styles from './RecentOrdersTable.module.css';
+import { OrderStatusTag } from '@/lib/orderStatus';
 
 const columns = [
     {
         title: 'MÃ ĐƠN HÀNG',
         dataIndex: 'orderCode',
-        render: (code: string) => <span style={{ fontWeight: 500 }}>#{code}</span>,
+        render: (code: string, record: any) => <Link href={`/orders/${record.id}`} style={{ fontWeight: 600, color: 'var(--color-primary)' }}>#{code}</Link>,
     },
     {
         title: 'KHÁCH HÀNG',
@@ -26,22 +27,12 @@ const columns = [
     {
         title: 'NGÀY',
         dataIndex: 'createdAt',
-        render: (date: string) => <span style={{ color: '#737373' }}>{new Date(date).toLocaleDateString()}</span>,
+        render: (date: string) => <span style={{ color: 'var(--text-secondary)' }}>{new Date(date).toLocaleDateString('vi-VN')}</span>,
     },
     {
         title: 'TRẠNG THÁI',
         dataIndex: 'status',
-        render: (status: string) => {
-            let statusClass = styles.pending;
-            if (status === 'DELIVERED' || status === 'SHIPPING') statusClass = styles.shipped;
-            if (status === 'PROCESSING') statusClass = styles.processing;
-
-            return (
-                <span className={`${styles.status} ${statusClass}`}>
-                    {status}
-                </span>
-            );
-        },
+        render: (status: string) => <OrderStatusTag status={status} />,
     },
     {
         title: 'TỔNG CỘNG',

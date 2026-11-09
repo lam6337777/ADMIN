@@ -273,6 +273,14 @@ export default function ProductDetailPage() {
                         <Form.Item label="Mô tả" name="description">
                             <TextArea rows={5} placeholder="Mô tả sản phẩm..." />
                         </Form.Item>
+                        <Form.Item
+                            label="Link mô hình 3D (.glb)"
+                            name="model3dUrl"
+                            extra="Để trống nếu chỉ có ảnh. File mẫu có sẵn trên web khách: /models/demo-shoe.glb"
+                            rules={[{ pattern: /^(https?:\/\/|\/).+\.(glb|gltf)(\?.*)?$/i, message: 'Link phải trỏ tới file .glb hoặc .gltf' }]}
+                        >
+                            <Input placeholder="https://.../giay.glb" />
+                        </Form.Item>
                     </div>
 
                     <div className={styles.card}>

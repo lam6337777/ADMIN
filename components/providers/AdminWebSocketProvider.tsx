@@ -44,8 +44,8 @@ export const AdminWebSocketProvider: React.FC<{ children: React.ReactNode }> = (
             console.log('Processing new chat message:', chatMessage);
             window.dispatchEvent(new CustomEvent('admin_new_chat_message', { detail: chatMessage }));
             
-            // Show bubble notification if not on support page
-            if (typeof window !== 'undefined' && window.location.pathname !== '/support') {
+            // Chỉ bật popup với tin khách gửi (tin admin trả lời chỉ dùng để đồng bộ giữa các admin)
+            if (chatMessage.sender?.role === 'CUSTOMER' && typeof window !== 'undefined' && window.location.pathname !== '/support') {
                 notification.success({
                     message: 'Tin nhắn mới',
                     description: `${chatMessage.sender?.fullName || 'Khách hàng'}: ${chatMessage.content}`,
@@ -55,7 +55,7 @@ export const AdminWebSocketProvider: React.FC<{ children: React.ReactNode }> = (
         };
 
         const client = new Client({
-            webSocketFactory: () => new SockJS('http://localhost:8082/ws'),
+            webSocketFactory: () => new SockJS(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8082').replace(/\/$/, '')}/ws`),
             debug: (str) => {
                 // console.log(str);
             },
@@ -95,14 +95,11 @@ export const AdminWebSocketProvider: React.FC<{ children: React.ReactNode }> = (
                     handleNewChatMessage(chatMessage);
                 });
 
-                // Also subscribe to topic for messages sent specifically to this admin
-                if (user) {
-                    client.subscribe(`/topic/chat/${user.id}`, (message) => {
-                        const chatMessage = JSON.parse(message.body);
-                        console.log('Admin received private message via WS:', chatMessage);
-                        handleNewChatMessage(chatMessage);
-                    });
-                }
+                // Một admin mở cuộc hội thoại → các admin khác cập nhật trạng thái đã đọc
+                client.subscribe('/topic/admin/chat-read', (message) => {
+                    const payload = JSON.parse(message.body);
+                    window.dispatchEvent(new CustomEvent('admin_chat_read', { detail: payload }));
+                });
             },
             onStompError: (frame) => {
                 console.error('Admin WebSocket Error:', frame);

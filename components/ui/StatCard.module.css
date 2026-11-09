@@ -1,41 +1,76 @@
 .card {
+    position: relative;
+    overflow: hidden;
     background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 20px 22px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
+    --tone-from: #0ea893;
+    --tone-to: #57ddc5;
+    --tone-soft: #e6f8f3;
+}
+
+/* Dải màu trên đầu thẻ + vệt màu loang góc phải */
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tone-from), var(--tone-to));
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    right: -50px;
+    bottom: -70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--tone-soft), transparent 70%);
+    pointer-events: none;
 }
 
 .card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-lift);
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
 }
 
 .title {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .iconWrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background-color: var(--bg-secondary);
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-primary);
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--tone-from), var(--tone-to));
+    color: #fff;
+    box-shadow: 0 8px 16px -8px var(--tone-from);
 }
+
+.coral { --tone-from: #ec4733; --tone-to: #ff8a7a; --tone-soft: #ffe9e5; }
+.amber { --tone-from: #d97706; --tone-to: #fbbf24; --tone-soft: #fef3c7; }
+.sky { --tone-from: #2563eb; --tone-to: #60a5fa; --tone-soft: #e0edff; }
+.violet { --tone-from: #7c3aed; --tone-to: #a78bfa; --tone-soft: #efe9ff; }
 
 .content {
     display: flex;
@@ -44,28 +79,36 @@
 }
 
 .value {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    font-weight: 800;
     letter-spacing: -0.02em;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .footer {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.8125rem;
 }
 
 .trendUp {
     color: var(--color-up);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .trendDown {
     color: var(--color-down);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .subtext {
     color: var(--text-secondary);
+}
+
+.card > * {
+    position: relative;
+    z-index: 1;
 }

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Table, Tag, Button, Tabs, message, Spin, Modal, Form, Input, Select } from 'antd';
 import styles from './page.module.css';
+import { OrderStatusTag } from '@/lib/orderStatus';
 import { customerService } from '@/services/customer.service';
 import { Customer } from '@/types/customer';
 import { Order } from '@/types/order';
@@ -140,14 +141,7 @@ export default function CustomerDetailPage() {
             title: 'TRẠNG THÁI',
             dataIndex: 'status',
             key: 'status',
-            render: (status: string) => {
-                let color = 'default';
-                if (status === 'DELIVERED') color = 'success';
-                if (status === 'PENDING') color = 'warning';
-                if (status === 'CANCELLED') color = 'error';
-                if (status === 'SHIPPING') color = 'processing';
-                return <Tag color={color}>{status}</Tag>;
-            }
+            render: (status: string) => <OrderStatusTag status={status} />
         },
         {
             title: 'THAO TÁC',

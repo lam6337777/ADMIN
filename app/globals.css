@@ -1,21 +1,44 @@
+/*
+ * Admin PF — đồng bộ tông "tươi mát" với storefront
+ * brand: xanh ngọc (teal) · accent: san hô · nền: ánh bạc hà
+ * Các module CSS dùng biến bên dưới; không hard-code mã hex trong component.
+ */
 :root {
-  /* Functional Colors */
-  --color-up: #00C087;
-  --color-down: #FF4D4F;
-  --color-warning: #F0B90B;
-  --color-primary: #000000; /* Primary is black in monochrome */
+  /* Brand */
+  --brand-50: #effcf9;
+  --brand-100: #c9f7ec;
+  --brand-200: #94eedb;
+  --brand-400: #26c4ab;
+  --brand-500: #0ea893;
+  --brand-600: #088777;
+  --brand-700: #0b6c61;
+  --brand-900: #104842;
 
-  /* Monochrome Palette */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F5F5F5;
-  --text-primary: #000000;
-  --text-secondary: #737373;
-  --border-color: #E5E5E5;
-  --bg-hover: #F5F5F5;
-  --accent: #171717;
+  /* Functional */
+  --color-primary: var(--brand-500);
+  --color-primary-dark: var(--brand-700);
+  --color-primary-soft: var(--brand-50);
+  --color-accent: #ff6552;
+  --color-up: #0ea893;
+  --color-down: #ec4733;
+  --color-warning: #f59e0b;
 
-  /* Layout Constants */
-  --sidebar-width: 240px;
+  /* Surfaces & text */
+  --bg-page: #f4fbf9;
+  --bg-primary: #ffffff;
+  --bg-secondary: #eef7f4;
+  --bg-hover: #f1faf7;
+  --text-primary: #10231f;
+  --text-secondary: #5f7471;
+  --border-color: #dfeae7;
+  --accent: var(--brand-700);
+
+  --shadow-card: 0 1px 2px rgb(16 35 31 / 0.04), 0 4px 16px rgb(16 35 31 / 0.05);
+  --shadow-lift: 0 12px 32px -8px rgb(14 168 147 / 0.25), 0 4px 12px rgb(16 35 31 / 0.08);
+  --radius-card: 16px;
+
+  /* Layout */
+  --sidebar-width: 248px;
   --header-height: 64px;
 }
 
@@ -29,9 +52,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-page);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-be-vietnam), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,27 +75,72 @@ button {
   font-family: inherit;
 }
 
-/* Ant Design Customization (Minimal) */
-.ant-btn-primary {
-  background-color: var(--text-primary) !important;
-  border-color: var(--text-primary) !important;
+::selection {
+  background: var(--brand-100);
 }
 
+/* Bảng antd: header nhẹ, hover ánh bạc hà */
 .ant-table-thead > tr > th {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-secondary) !important;
-  font-weight: 500 !important;
-  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.02em;
+  font-weight: 600 !important;
 }
 
-.ant-table-row {
-  transition: background-color 0.2s ease-in-out;
+.ant-table-wrapper {
+  max-width: 100%;
 }
 
-.ant-table-row:hover > td {
-  background-color: var(--bg-hover) !important;
+.ant-table-content {
+  overflow-x: auto;
 }
 
-.ant-select-selector {
-  border-radius: 9999px !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Khối tiêu đề trang + bảng dạng thẻ dùng chung cho các trang antd */
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.page-title svg {
+  color: var(--color-primary);
+}
+
+.page-subtitle {
+  margin-top: 4px;
+  max-width: 720px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.page-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.page-card .ant-table-wrapper .ant-table-pagination {
+  padding: 0 16px;
 }

@@ -5,6 +5,7 @@ import { Search, Download, Eye, Calendar, Package, Check, Truck, ShoppingBag, Cl
 import Link from 'next/link';
 import { Table, Select, DatePicker, Button, Tag, message } from 'antd';
 import styles from './page.module.css';
+import { assetUrl, OrderStatusTag, PaymentStatusTag } from '@/lib/orderStatus';
 import StatCard from '@/components/ui/StatCard';
 import { useAppDispatch, useAppSelector } from '@/store/redux/hooks';
 import { fetchOrders } from '@/store/redux/slices/orderSlice';
@@ -82,17 +83,6 @@ export default function OrdersPage() {
         }
     };
 
-    const getStatusClass = (status: string) => {
-        switch (status) {
-            case 'PENDING': return styles.statusPending;
-            case 'CONFIRMED': return styles.statusProcessing;
-            case 'SHIPPING': return styles.statusShipped;
-            case 'DELIVERED': return styles.statusDelivered;
-            case 'CANCELLED': return styles.statusCancelled;
-            default: return '';
-        }
-    };
-
     const columns = [
         {
             title: 'MÃ ĐƠN HÀNG',
@@ -114,7 +104,7 @@ export default function OrdersPage() {
             title: 'NGÀY',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            render: (text: string) => <span style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>{new Date(text).toLocaleString()}</span>
+            render: (text: string) => <span style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>{new Date(text).toLocaleString('vi-VN')}</span>
         },
         {
             title: 'SẢN PHẨM',
@@ -125,7 +115,7 @@ export default function OrdersPage() {
                         {record.items?.slice(0, 3).map((item: any, index: number) => (
                             <div key={item.id} className={styles.thumbnailWrapper} style={{ zIndex: 10 - index }}>
                                 {item.imageUrl ? (
-                                    <img src={item.imageUrl} alt={item.productName} className={styles.thumbnail} />
+                                    <img src={assetUrl(item.imageUrl)} alt={item.productName} className={styles.thumbnail} />
                                 ) : (
                                     <div className={styles.thumbnailPlaceholder}>
                                         <Package size={12} />
@@ -152,10 +142,8 @@ export default function OrdersPage() {
             key: 'payment',
             render: (_: any, record: any) => (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <Tag color="default">{record.paymentMethod}</Tag>
-                    <Tag color={record.paymentStatus === 'PAID' ? 'success' : 'warning'} style={{ fontSize: '10px' }}>
-                        {record.paymentStatus}
-                    </Tag>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: 600 }}>{record.paymentMethod}</span>
+                    <PaymentStatusTag status={record.paymentStatus} />
                 </div>
             )
         },
@@ -164,9 +152,7 @@ export default function OrdersPage() {
             dataIndex: 'status',
             key: 'status',
             render: (status: string) => (
-                <span className={`${styles.statusTag} ${getStatusClass(status)}`}>
-                    {status}
-                </span>
+<OrderStatusTag status={status} />
             )
         },
         {
@@ -232,11 +218,15 @@ export default function OrdersPage() {
                     onChange={handleStatusFilterChange}
                     options={[
                         { value: 'all-status', label: 'Tất cả trạng thái' },
-                        { value: 'PENDING', label: 'Chờ xử lý' },
+                        { value: 'PENDING', label: 'Chờ xác nhận' },
                         { value: 'CONFIRMED', label: 'Đã xác nhận' },
                         { value: 'SHIPPING', label: 'Đang giao' },
                         { value: 'DELIVERED', label: 'Đã giao' },
-                        { value: 'RETURNED', label: 'Đã hoàn hàng' },
+                        { value: 'RETURN_REQUESTED', label: 'Yêu cầu trả hàng' },
+                        { value: 'RETURNED', label: 'Đã trả hàng' },
+                        { value: 'PARTIALLY_RETURNED', label: 'Đã trả một phần' },
+                        { value: 'EXCHANGE_REQUESTED', label: 'Yêu cầu đổi hàng' },
+                        { value: 'WARRANTY_REQUESTED', label: 'Yêu cầu bảo hành' },
                         { value: 'CANCELLED', label: 'Đã hủy' },
                     ]}
                 />

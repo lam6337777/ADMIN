@@ -41,13 +41,27 @@ function SupportChatContent() {
                     if (prev.some(m => m.id === newMessage.id)) return prev;
                     return [...prev, newMessage];
                 });
+                // Đang mở đúng cuộc hội thoại → tin khách vừa gửi coi như đã đọc
+                if (newMessage.sender.role === 'CUSTOMER') {
+                    supportService.markConversationRead(selectedUser.id).catch(() => { });
+                }
             }
             // Cập nhật lại danh sách cuộc trò chuyện
             fetchConversations();
         };
 
+        // Admin khác đã đọc cuộc hội thoại → xóa badge chưa đọc
+        const handleRead = (event: any) => {
+            const customerId = event.detail?.customerId;
+            setConversations(prev => prev.map(conv => (conv.id === customerId ? { ...conv, unreadCount: 0 } : conv)));
+        };
+
         window.addEventListener('admin_new_chat_message', handleNewMessage);
-        return () => window.removeEventListener('admin_new_chat_message', handleNewMessage);
+        window.addEventListener('admin_chat_read', handleRead);
+        return () => {
+            window.removeEventListener('admin_new_chat_message', handleNewMessage);
+            window.removeEventListener('admin_chat_read', handleRead);
+        };
     }, [selectedUser]);
 
     useEffect(() => {
@@ -107,8 +121,8 @@ function SupportChatContent() {
             const data = await supportService.getMessages(userId);
             setMessages(data);
 
-            // Đánh dấu đã đọc
-            await supportService.markAsRead();
+            // Đánh dấu đã đọc cuộc hội thoại này (cho mọi admin)
+            await supportService.markConversationRead(userId);
 
             // Reset unread count trên local state
             setConversations(prev => prev.map(conv =>
@@ -230,9 +244,12 @@ function SupportChatContent() {
                                         <div style={{ textAlign: 'center', padding: '2rem' }}><Spin /></div>
                                     ) : messages.map((msg, index) => (
                                         <div
-                                            key={index}
+                                            key={msg.id ?? index}
                                             className={`${styles.messageWrapper} ${msg.sender.role === 'ADMIN' ? styles.ownMessage : ''}`}
                                         >
+                                            {msg.sender.role === 'ADMIN' && (
+                                                <span className={styles.messageAuthor}>{msg.sender.fullName}</span>
+                                            )}
                                             <div className={styles.messageBubble}>
                                                 {msg.content}
                                             </div>
@@ -255,7 +272,6 @@ function SupportChatContent() {
                                                 icon={<Send size={16} />}
                                                 onClick={handleSend}
                                                 loading={isSending}
-                                                style={{ background: 'var(--text-primary)', borderColor: 'var(--text-primary)' }}
                                             />
                                         }
                                     />

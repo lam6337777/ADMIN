@@ -7,6 +7,8 @@ import MainLayout from "@/components/layout/MainLayout";
 import StoreProvider from "@/app/StoreProvider";
 import { AdminWebSocketProvider } from "@/components/providers/AdminWebSocketProvider";
 import { ConfigProvider } from "antd";
+import viVN from "antd/locale/vi_VN";
+import "dayjs/locale/vi";
 import { useAppSelector } from "@/store/redux/hooks";
 
 const AUTH_ROUTES = ['/login', '/register'];
@@ -40,30 +42,38 @@ export default function RootClientLayout({ children }: { children: React.ReactNo
 
     return (
         <ConfigProvider
+            locale={viVN}
             warning={{ strict: false }}
             theme={{
                 token: {
-                    fontFamily: 'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                    colorPrimary: '#000000',
-                    colorInfo: '#000000',
-                    borderRadius: 9999,
+                    fontFamily: 'var(--font-be-vietnam), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    colorPrimary: '#0ea893',
+                    colorInfo: '#0ea893',
+                    colorSuccess: '#0ea893',
+                    colorError: '#ec4733',
+                    colorWarning: '#f59e0b',
+                    colorLink: '#088777',
+                    colorText: '#10231f',
+                    colorTextSecondary: '#5f7471',
+                    colorBorder: '#d3e3df',
+                    colorBorderSecondary: '#dfeae7',
+                    colorBgLayout: '#f4fbf9',
+                    borderRadius: 10,
                     borderRadiusLG: 16,
-                    colorBgContainer: '#FFFFFF',
-                    colorBorder: '#E5E5E5',
-                    controlHeight: 40,
+                    controlHeight: 38,
                 },
                 components: {
-                    Button: {
-                        fontWeight: 500,
-                    },
+                    Button: { fontWeight: 600, primaryShadow: '0 6px 16px -6px rgba(14,168,147,0.55)' },
                     Table: {
-                        headerBg: '#FFFFFF',
-                        headerColor: '#737373',
+                        headerBg: '#f4fbf9',
+                        headerColor: '#5f7471',
                         headerSplitColor: 'transparent',
-                        borderColor: '#E5E5E5',
-                        rowHoverBg: '#F5F5F5',
+                        borderColor: '#e6efec',
+                        rowHoverBg: '#f1faf7',
                     },
-                }
+                    Card: { borderRadiusLG: 16 },
+                    Tag: { borderRadiusSM: 6 },
+                },
             }}
         >
             <StoreProvider>

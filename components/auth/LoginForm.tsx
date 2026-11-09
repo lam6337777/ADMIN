@@ -40,6 +40,7 @@ export default function LoginForm() {
 
     return (
         <div className={styles.authCard}>
+            <div className={styles.authLogo}>PF</div>
             <h2 className={styles.authTitle}>Chào mừng trở lại</h2>
             <p className={styles.authSubtitle}>Đăng nhập để quản lý cửa hàng của bạn</p>
 

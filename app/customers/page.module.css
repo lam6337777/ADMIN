@@ -42,7 +42,7 @@
 .filterCard {
     background-color: white;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     padding: 16px;
     margin-bottom: 24px;
     display: flex;
@@ -79,7 +79,7 @@
 .tableContainer {
     background-color: white;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     overflow: hidden;
     margin-bottom: 24px;
 }

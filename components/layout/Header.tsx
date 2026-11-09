@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Bell, Plus, MessageSquare, ShoppingCart, RefreshCcw, LogOut } from 'lucide-react';
+import { Bell, Menu, MessageSquare, ShoppingCart, RefreshCcw, LogOut } from 'lucide-react';
 import { Button, Badge, Dropdown, List, Avatar } from 'antd';
 import styles from './Header.module.css';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
 interface Notification {
@@ -19,8 +18,7 @@ interface Notification {
     link: string;
 }
 
-export default function Header() {
-    const pathname = usePathname();
+export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
     const { user, isAuthenticated, signOut } = useAuth();
     const [notifications, setNotifications] = useState<Notification[]>([]);
 
@@ -55,6 +53,7 @@ export default function Header() {
 
         const handleChat = (event: any) => {
             const msg = event.detail;
+            if (msg.sender?.role !== 'CUSTOMER') return; // tin admin trả lời không cần chuông
             setNotifications(prev => {
                 // Lọc trùng lặp thông báo chat dựa trên id duy nhất
                 if (prev.some(n => n.id === `chat-${msg.id}`)) {
@@ -67,7 +66,7 @@ export default function Header() {
                     description: msg.content,
                     time: new Date(),
                     read: false,
-                    link: '/support'
+                    link: `/support?userId=${msg.sender.id}`
                 };
                 return [newNotif, ...prev].slice(0, 20);
             });
@@ -133,43 +132,25 @@ export default function Header() {
         </div>
     );
 
-    const navItems = [
-        { label: 'Tổng quan', href: '/' },
-        { label: 'Sản phẩm', href: '/inventory' },
-        { label: 'Đơn hàng', href: '/orders' },
-        { label: 'Đổi trả', href: '/returns' },
-        { label: 'Hỗ trợ', href: '/support' },
-        { label: 'Khách hàng', href: '/customers' },
-    ];
+    const today = new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
 
     return (
         <header className={styles.header}>
             <div className={styles.left}>
-                <div className={styles.logo}>
-                    <div className={styles.logoIcon}>
-                        <Plus size={18} color="white" strokeWidth={3} />
-                    </div>
-                    <span className={styles.logoText}>Admin PF</span>
+                <button className={styles.menuBtn} onClick={onMenuClick} aria-label="Mở menu">
+                    <Menu size={22} />
+                </button>
+                <div className={styles.greeting}>
+                    <span className={styles.hello}>Xin chào{user?.fullName ? `, ${user.fullName}` : ''}</span>
+                    <span className={styles.date}>{today}</span>
                 </div>
-
-                <nav className={styles.nav}>
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`${styles.navLink} ${pathname === item.href ? styles.active : ''}`}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-                </nav>
             </div>
 
             <div className={styles.actions}>
 
 
                 <Dropdown popupRender={() => notificationMenu} trigger={['click']} placement="bottomRight">
-                    <button className={styles.notificationBtn}>
+                    <button className={styles.notificationBtn} aria-label="Thông báo">
                         <Badge count={notifications.filter(n => !n.read).length} size="small" offset={[2, 0]}>
                             <Bell size={20} className={notifications.some(n => !n.read) ? styles.bellShake : ''} />
                         </Badge>
@@ -185,7 +166,7 @@ export default function Header() {
                                     label: (
                                         <div style={{ padding: '4px 8px' }}>
                                             <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{user.fullName}</div>
-                                            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{user.email || 'admin@shoestore.com'}</div>
+                                            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{user.email}</div>
                                         </div>
                                     ),
                                 },

@@ -139,7 +139,7 @@ export default function NotificationsPage() {
                                     </Button>
                                 ]}
                             >
-                                <Link href={item.link} className={styles.notifLink}>
+                                <Link href={item.link === '/chat' ? '/support' : item.link} className={styles.notifLink}>
                                     <List.Item.Meta
                                         avatar={
                                             <Avatar
