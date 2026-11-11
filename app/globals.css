@@ -144,3 +144,30 @@ button {
 .page-card .ant-table-wrapper .ant-table-pagination {
   padding: 0 16px;
 }
+
+/* Điện thoại: bảng giữ độ rộng tối thiểu và vuốt ngang, thay vì bóp cột tới mức chữ xuống dòng từng ký tự */
+@media (max-width: 768px) {
+  .ant-table-content,
+  .ant-table-body {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ant-table-content > table,
+  .ant-table-body > table {
+    min-width: 720px;
+  }
+  .ant-table-thead > tr > th {
+    white-space: nowrap;
+  }
+  .ant-table-tbody > tr > td {
+    word-break: normal;
+  }
+}
+
+/* Ô nhập gốc của trình duyệt không tự kế thừa phông chữ của trang */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}

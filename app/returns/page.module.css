@@ -288,3 +288,136 @@
     display: flex;
     gap: 0.5rem;
 }
+/* ── Danh sách dạng thẻ cho điện thoại ─────────────────────────── */
+.tableContainer {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.cardList {
+    display: none;
+}
+
+.requestCard {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.cardOrder {
+    background: none;
+    border: none;
+    padding: 0;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.cardDate {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.cardTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.cardTags :global(.ant-tag) {
+    margin: 0;
+}
+
+.cardCustomer {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.cardCustomer .customerEmail {
+    overflow-wrap: anywhere;
+}
+
+.cardReason {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 8px 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cardActions {
+    display: flex;
+    gap: 8px;
+}
+
+.cardActions :global(.ant-btn) {
+    flex: 1;
+    height: 40px;
+}
+
+.cardEmpty {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.cardPagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header {
+        margin-bottom: 1rem;
+    }
+
+    .filterCard {
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .searchInput {
+        font-size: 16px; /* iOS không tự phóng to khi chạm vào ô tìm kiếm */
+    }
+
+    .tableContainer {
+        display: none;
+    }
+
+    .cardList {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.cardActions :global(.ant-btn) {
+    min-width: 0;
+    padding-inline: 8px;
+}

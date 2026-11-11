@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Eye, CheckCircle, XCircle, Package, Clock } from 'lucide-react';
-import { Table, Button, Input, Modal, Tag, message } from 'antd';
+import { Table, Button, Input, Modal, Tag, Pagination, Spin, Empty, message } from 'antd';
 import styles from './page.module.css';
 import { supportService } from '@/services/support.service';
 import { ReturnRequest } from '@/types/support';
@@ -17,6 +17,8 @@ export default function ReturnsPage() {
     const [selectedRequest, setSelectedRequest] = useState<ReturnRequest | null>(null);
     const [adminNote, setAdminNote] = useState('');
     const [searchTerm, setSearchTerm] = useState(''); // State lưu trữ từ khóa tìm kiếm khách hàng/đơn hàng
+    const [mobilePage, setMobilePage] = useState(1);
+    const MOBILE_PAGE_SIZE = 10;
 
     useEffect(() => {
         fetchRequests();
@@ -192,11 +194,12 @@ export default function ReturnsPage() {
                         className={styles.searchInput}
                         bordered={false}
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => { setSearchTerm(e.target.value); setMobilePage(1); }}
                     />
                 </div>
             </div>
 
+            {/* Máy tính / máy tính bảng: bảng đầy đủ */}
             <div className={styles.tableContainer}>
                 <Table
                     dataSource={filteredRequests}
@@ -204,7 +207,65 @@ export default function ReturnsPage() {
                     loading={loading}
                     rowKey="id"
                     pagination={{ pageSize: 15 }}
+                    scroll={{ x: 900 }}
                 />
+            </div>
+
+            {/* Điện thoại: mỗi yêu cầu là một thẻ, nút duyệt/từ chối to dễ bấm */}
+            <div className={styles.cardList}>
+                {loading ? (
+                    <div className={styles.cardEmpty}><Spin /></div>
+                ) : filteredRequests.length === 0 ? (
+                    <div className={styles.cardEmpty}><Empty description="Không có yêu cầu nào" /></div>
+                ) : (
+                    filteredRequests
+                        .slice((mobilePage - 1) * MOBILE_PAGE_SIZE, mobilePage * MOBILE_PAGE_SIZE)
+                        .map((r) => (
+                            <div key={r.id} className={styles.requestCard}>
+                                <div className={styles.cardTop}>
+                                    <button className={styles.cardOrder} onClick={() => router.push(`/returns/${r.id}`)}>
+                                        #{r.orderCode}
+                                    </button>
+                                    <span className={styles.cardDate}>{new Date(r.createdAt).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+                                </div>
+                                <div className={styles.cardTags}>
+                                    {getTypeTag(r.type)}
+                                    {getStatusTag(r.status)}
+                                </div>
+                                <div className={styles.cardCustomer}>
+                                    <span className={styles.customerName}>{r.user?.fullName}</span>
+                                    <span className={styles.customerEmail}>{r.user?.email}</span>
+                                </div>
+                                {r.reason && <p className={styles.cardReason}>{r.reason}</p>}
+                                <div className={styles.cardActions}>
+                                    <Button icon={<Eye size={16} />} onClick={() => router.push(`/returns/${r.id}`)}>
+                                        Chi tiết
+                                    </Button>
+                                    {r.status === 'PENDING' && (
+                                        <>
+                                            <Button danger icon={<XCircle size={16} />} onClick={() => handleReject(r)}>
+                                                Từ chối
+                                            </Button>
+                                            <Button type="primary" icon={<CheckCircle size={16} />} onClick={() => handleApprove(r)}>
+                                                Duyệt
+                                            </Button>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                )}
+                {filteredRequests.length > MOBILE_PAGE_SIZE && (
+                    <Pagination
+                        className={styles.cardPagination}
+                        current={mobilePage}
+                        pageSize={MOBILE_PAGE_SIZE}
+                        total={filteredRequests.length}
+                        onChange={setMobilePage}
+                        size="small"
+                        showSizeChanger={false}
+                    />
+                )}
             </div>
 
             <Modal

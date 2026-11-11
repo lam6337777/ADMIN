@@ -232,3 +232,46 @@
         grid-template-columns: 1fr;
     }
 }
+/* Điện thoại: tiêu đề + nút xếp dọc, bộ lọc xuống dòng, ô tìm kiếm chiếm cả hàng */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .headerActions {
+        flex-wrap: wrap;
+    }
+
+    .headerActions > * {
+        flex: 1 1 auto;
+    }
+
+    .filterCard {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+        margin-bottom: 16px;
+    }
+
+    .searchWrapper {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .filterCard > :not(.searchWrapper) {
+        flex: 1 1 140px;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+
+    .searchInput {
+        font-size: 16px;
+    }
+}
